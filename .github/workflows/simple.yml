@@ -13,3 +13,5 @@ jobs:
           node -v
           npm -v
           python --version
+      - name: git Diff status
+        run: git diff --stat HEAD~1 HEAD
