@@ -8,8 +8,6 @@ jobs:
     steps:
       - name: echo string 
         run: echo "hello sainath your github actions ran"
-      - name: git Diff status
-        run: git diff --stat HEAD~1 HEAD
       - name: multiline scripts 
         run: |
           node -v
