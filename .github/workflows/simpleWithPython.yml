@@ -1,0 +1,29 @@
+name: shell commands
+
+on: [push]
+
+jobs:
+  sai-run-shell-command: #job no 1 can be given any name
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo string 
+        run: echo "hello sainath your github actions ran"
+      - name: multiline scripts 
+        run: |
+          node -v
+          npm -v
+          python --version
+      - name: python command
+        run: |
+          import platform
+          print(platform.processor())
+        shell: python #telling to run on python shell 
+  run-windows-command: # job no 2 runs parallely if we dont specify "needs"
+    runs-on: windows-latest
+    needs: [sai-run-shell-command] # to run sequntially pass an aarray of job ids this job will run only after all the jobs in the array pass
+    steps:
+      - name: Directory Powershell
+        run: Get-Location
+      - name: Directory Bash
+        run: pwd
+        shell: bash
