@@ -1,3 +1,7 @@
+#python command run
+#listing files and pwd of github runner VM
+#cloning current repo into VM (in working dir)
+#env variables
 name: shell commands
 
 on: [push]
@@ -27,3 +31,28 @@ jobs:
       - name: Directory Bash
         run: pwd
         shell: bash
+  get-pwd-and-list-files:
+    runs-on: ubuntu-latest
+    needs: [sai-run-shell-command,run-windows-command]
+    steps:
+      - name: list files 
+        id: listFiles # using this ID we can reference this step anytime we want
+        run: |
+          pwd
+          ls -a
+      - name: Checkout 
+        uses: actions/checkout@v2 #git clone the commit of current repo which trigger current workflow to run, we can also clone other repo too
+      - name: list files post cloning ie.Checkout
+        run: |
+          pwd
+          ls -a
+      - name: List ENV variables
+        run: |
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+      - name: using custom env variables
+        run: echo Hello $FIRST_NAME from $Country!
+        env:
+          FIRST_NAME: Sainath
+          Country: India
